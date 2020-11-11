@@ -13,7 +13,7 @@ source:
 
 build:
   skip: true  # [win or py3k]
-  number: 1001
+  number: 1002
   script:
     - "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
 
