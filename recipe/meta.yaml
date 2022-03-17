@@ -1,35 +1,37 @@
 {% set name = "nappy" %}
-{% set version = "1.1.4" %}
-{% set sha256 = "2bc123250e559c574c57ad8d7e4c05814d58f3dc45f70622b1be401d30ec1b20" %}
+{% set version = "2.0.2" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/nappy-{{ version }}.tar.gz
+  sha256: b70c562131a470c17246d7b7dcf6c21597e7067534b45d1207e31252c8725926
 
 build:
-  skip: true  # [win or py3k]
-  number: 1001
-  script:
-    - "{{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv"
+  entry_points:
+    - na2nc=nappy.script.na2nc:na2nc
+    - nc2na=nappy.script.nc2na:nc2na
+    - nc2csv=nappy.script.nc2csv:nc2csv
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
 
 requirements:
-  build:
-    - python
-    - setuptools
   host:
-    - python
     - pip
-  run:
-    - python
+    - pypandoc
+    - python >=3.6
     - setuptools
+  run:
+    - cf_xarray
+    - cftime
+    - netcdf4
     - numpy
-    - cdat-lite
-    - python
+    - python >=3.6
+    - scipy
+    - xarray
 
 test:
   imports:
@@ -37,13 +39,20 @@ test:
     - nappy.utils.compare_na
     - nappy.utils.common_utils
     - nappy.utils.text_parser
+  commands:
+    - pip check
+    - na2nc --help
+    - nc2na --help
+    - nc2csv --help
+  requires:
+    - pip
 
 about:
   home: https://github.com/cedadev/nappy
-  license: BSD 3-Clause
+  summary: NASA Ames Processing in Python
+  license: BSD-3-Clause
   license_family: BSD
-  license_file: '{{ environ["RECIPE_DIR"] }}/LICENSE.txt'
-  summary: A NASA AMes I/O package
+  license_file: LICENSE
 
 extra:
   recipe-maintainers:
