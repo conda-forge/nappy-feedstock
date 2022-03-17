@@ -23,7 +23,6 @@ requirements:
     - pip
     - pypandoc
     - python >=3.6
-    - setuptools
   run:
     - cf_xarray
     - cftime
