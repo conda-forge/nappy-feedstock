@@ -43,7 +43,7 @@ test:
 
 about:
   home: https://github.com/cedadev/nappy
-  license: BSD 3-Clause License
+  license: BSD 3
   license_family: BSD
   license_file: {{ environ["RECIPE_DIR"] }}/LICENSE.txt
   summary: A NASA AMes I/O package
