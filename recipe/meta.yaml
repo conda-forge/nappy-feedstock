@@ -19,15 +19,22 @@ build:
   number: 0
 
 requirements:
+  build:
   host:
     - pip
     - pypandoc
-    - python >=3.6
-  run:
     - cf_xarray
     - cftime
     - netcdf4
     - numpy
+    - python >=3.6
+    - scipy
+    - xarray
+  run:
+    - cf_xarray
+    - cftime
+    - netcdf4
+    - {{ pin_compatible('numpy') }}
     - python >=3.6
     - scipy
     - xarray
